@@ -6,7 +6,7 @@ import Head from 'next/head'
 const name = 'Orbit'
 export const siteTitle = 'Orbit'
 
-function Layout({children, home}) {
+function Layout({children, home} : { children: React.ReactNode, home?: boolean}) {
   return (
     <div className={styles.container}>
       <Head>

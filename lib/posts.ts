@@ -9,13 +9,14 @@ const postsDirectory = path.join(process.cwd(), 'posts')
 export function getSortedPostsData() {
   const fileNames = fs.readdirSync(postsDirectory)
   const allPostsData = fileNames.map(fileName => {
+    // rm the file extension to create id
     const id = fileName.replace(/\.md$/, '')
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const matterResult = matter(fileContents)
     return {
       id, 
-      ...matterResult.data
+      ...(matterResult.data as { date: string, title: string})
     }
   })
 
@@ -52,6 +53,6 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...matterResult.data
+    ...(matterResult.data as { date: string, title: string})
   }
 }

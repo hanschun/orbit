@@ -4,8 +4,22 @@ import Layout, {siteTitle} from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import {getSortedPostsData} from '../lib/posts'
 import Date from '../components/date'
+import {GetStaticProps} from 'next'
+import Login from '../components/auth/login'
 
-export default function Home({allPostsData}) {
+import {useFetchUser} from '../lib/user'
+
+export default function Home({allPostsData} : {
+  allPostsData: {
+    date: string,
+    title: string,
+    id: string
+  }[]
+}) {
+  const { user, loading } = useFetchUser({required: true})
+  if (!loading && !user) {
+    return <Login />
+  }
   return (
     <Layout home>
       <Head>
@@ -35,7 +49,7 @@ export default function Home({allPostsData}) {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
   return {
     props: {
