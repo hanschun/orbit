@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 
-export function Profile() {
-  const {data, error} = useSWR('/api/user', fetcher)
+export function Profile({data, error}) {
+  // const {data, error} = useSWR('/api/user', fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
