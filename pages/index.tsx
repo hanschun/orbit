@@ -8,14 +8,15 @@ import {GetStaticProps} from 'next'
 import Login from '../components/auth/login'
 
 import {useFetchUser} from '../lib/user'
+import {withApollo} from '../lib/withApollo'
 
-export default function Home({allPostsData} : {
+const HomePage = ({allPostsData} : {
   allPostsData: {
     date: string,
     title: string,
     id: string
   }[]
-}) {
+}) => {
   const { user, loading } = useFetchUser({required: true})
   if (!loading && !user) {
     return <Login />
@@ -31,7 +32,7 @@ export default function Home({allPostsData} : {
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Posts</h2>
-        <ul className={utilStyles.list}>
+        {/* <ul className={utilStyles.list}>
           {allPostsData.map(({id, date, title}) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href="/posts/[id]" as={`/posts/${id}`}>
@@ -43,17 +44,19 @@ export default function Home({allPostsData} : {
               </small>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </section>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
-}
+export default withApollo({ssr: true})(HomePage)
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   const allPostsData = getSortedPostsData()
+//   return {
+//     props: {
+//       allPostsData
+//     }
+//   }
+// }

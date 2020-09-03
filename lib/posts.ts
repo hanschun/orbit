@@ -3,6 +3,29 @@ import path from 'path'
 import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
+import gql from 'graphql-tag'
+import {User} from './user'
+
+export const GET_ALL_POSTS = gql`
+  query getAllPosts {
+    posts(order_by: { created_at: desc }) {
+      id
+      body
+      hash
+      created_at
+      sender {
+        name
+      }
+    }
+  }
+`
+
+export class Post {
+  body: string;
+  sender: User;
+  hash: string;
+  created_at: Date;
+}
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -29,12 +52,13 @@ export function getSortedPostsData() {
   })
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames.map(fileName => {
+
+export function getAllPostIds(posts) {
+  return posts.map((post: Post) => {
+    const userName = posts.sender.name.join('-')
     return {
       params: {
-        id: fileName.replace(/\.md$/, '')
+        id: `${userName}`
       }
     }
   })

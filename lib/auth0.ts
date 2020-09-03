@@ -5,6 +5,7 @@ export default initAuth0({
   domain: config.AUTH0_DOMAIN,
   clientId: config.AUTH0_CLIENT_ID,
   clientSecret: config.AUTH0_CLIENT_SECRET,
+  audience: config.AUTH0_AUDIENCE,
   scope: 'openid profile',
   redirectUri: config.REDIRECT_URI,
   postLogoutRedirectUri: config.POST_LOGOUT_REDIRECT_URI,
@@ -18,11 +19,11 @@ export default initAuth0({
     // (Optional) SameSite configuration for the session cookie. Defaults to 'lax', but can be changed to 'strict' or 'none'. Set it to false if you want to disable the SameSite setting.
     cookieSameSite: 'lax',
     // (Optional) Store the id_token in the session. Defaults to false.
-    storeIdToken: false,
+    storeIdToken: true,
     // (Optional) Store the access_token in the session. Defaults to false.
-    storeAccessToken: false,
+    storeAccessToken: true,
     // (Optional) Store the refresh_token in the session. Defaults to false.
-    storeRefreshToken: false
+    storeRefreshToken: true
   },
   oidcClient: {
     // (Optional) Configure the timeout in milliseconds for HTTP requests to Auth0.
