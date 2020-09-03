@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 import gql from 'graphql-tag'
-import {User} from './user'
+import {User} from './classes/user'
 
 export const GET_ALL_POSTS = gql`
   query getAllPosts {
