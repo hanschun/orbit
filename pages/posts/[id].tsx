@@ -11,7 +11,7 @@ export default function Post() {
   const [posts, setPosts] = useState([])
   const postData = {
     title: 'Test',
-    date: '9-1-20',
+    date: '2020-09-03T21:18:11.547762+00:00',
     body: '<p>Testing</p>'
   }
   // TODO: move to useEffect
