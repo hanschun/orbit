@@ -7,9 +7,16 @@ import utilStyles from '../../styles/utils.module.css'
 import {GetStaticProps, GetStaticPaths, GetServerSideProps} from 'next'
 
 
-export default function Post({postData}) {
+export default function Post() {
   const [posts, setPosts] = useState([])
-  
+  const postData = {
+    title: 'Test',
+    date: '9-1-20',
+    body: '<p>Testing</p>'
+  }
+  // TODO: move to useEffect
+  // const paths = await getAllPostIds()
+  // const postData = await getPostData(params.id, params.date)
   // update to useEffect method using useApolloClient.query here
 
   return <Layout>
@@ -24,21 +31,4 @@ export default function Post({postData}) {
       <div dangerouslySetInnerHTML={{ __html: postData.body }} />
     </article>
   </Layout>
-}
-
-export const getStaticPaths: GetStaticPaths = async() => {
-  const paths = await getAllPostIds()
-  return {
-    paths,
-    fallback: false
-  }
-}
-
-export const getStaticProps: GetStaticProps = async ({params}) => {
-  const postData = await getPostData(params.id, params.date)
-  return {
-    props: {
-      postData
-    }
-  }
 }
