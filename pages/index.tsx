@@ -26,7 +26,7 @@ const HomePage = () => {
   )
 }
 
-export default withApollo({ssr: true})(HomePage)
+export default withApollo()(HomePage)
 
 
 // update to handle using apolloClient query, limit 5?
