@@ -8,7 +8,6 @@ import {PostsList} from '../components/posts/posts-list'
 
 const HomePage = () => {
   const { user, loading } = useFetchUser({required: true})
-
   if (!loading && !user) {
     return <Login />
   }
@@ -22,6 +21,12 @@ const HomePage = () => {
         <p>People post to different Topic subjects in orbit of subject Planets.</p>
       </section>
       <PostsList />
+      <div>
+        <a href="/api/logout">Logout</a>
+      </div>
+      <div>
+        <a href="/me">Me</a>
+      </div>
     </Layout>
   )
 }
