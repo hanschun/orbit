@@ -8,6 +8,9 @@ import {PostsList} from '../components/posts/posts-list'
 
 const HomePage = () => {
   const { user, loading } = useFetchUser({required: true})
+  if(loading) {
+    return <div>Loading...</div>
+  }
   if (!loading && !user) {
     return <Login />
   }
@@ -23,6 +26,9 @@ const HomePage = () => {
       <PostsList />
       <div>
         <a href="/api/logout">Logout</a>
+      </div>
+      <div>
+        <a href="/session">Session</a>
       </div>
       <div>
         <a href="/me">Me</a>
